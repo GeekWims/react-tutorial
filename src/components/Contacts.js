@@ -1,7 +1,9 @@
 import React from 'react';
+import ContactInfo from './ContactInfo'
 
 class Contacts extends React.Component {
   constructor(props) {
+    super(props);
     this.state = {
       contactData: [
         {name: "Abet", phone: "010-0000-0001"},
@@ -27,3 +29,5 @@ class Contacts extends React.Component {
     );
   }
 }
+
+export default Contacts;
