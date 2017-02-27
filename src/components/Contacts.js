@@ -7,6 +7,7 @@ class Contacts extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      keyword: '',
       contactData: [
         {name: "Abet", phone: "010-0000-0001"},
         {name: "Betty", phone: "010-0000-0002"},
@@ -15,6 +16,8 @@ class Contacts extends React.Component {
       ],
       selectedKey: -1
     };
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
   _insertContact(name, phone) {
@@ -49,19 +52,42 @@ class Contacts extends React.Component {
     }
   }
 
+  handleChange(e) {
+    this.setState({
+      keyword: e.target.value
+    });
+  }
+
   render() {
+    const mapToComponents = (data) => {
+      data.sort();
+      data = data.filter(
+        (contact) => {
+          return contact.name.toLowerCase().indexOf(this.state.keyword) > -1;
+        }
+      );
+      return data.map((contact, i) => {
+        return (
+          <ContactInfo name={contact.name} phone={contact.phone} key={i}
+            contactKey={i}
+            isSelected={this._isSelected.bind(this)(i)}
+            onSelect={this._onSelect.bind(this)}/>
+        );
+      });
+    };
+
     return (
       <div>
         <h1>Contacts</h1>
+        <input
+          name="keyword"
+          placeholder="Search"
+          value={this.state.keyword}
+          onChange={this.handleChange}/>
         <ul>
-          {this.state.contactData.map((contact, i) => {
-            return (
-              <ContactInfo name={contact.name} phone={contact.phone} key={i}
-                contactKey={i}
-                isSelected={this._isSelected.bind(this)(i)}
-                onSelect={this._onSelect.bind(this)}/>
-            )
-          })}
+          {
+            mapToComponents(this.state.contactData)
+          }
         </ul>
         <ContactCreator onInsert={this._insertContact.bind(this)}/>
       </div>
