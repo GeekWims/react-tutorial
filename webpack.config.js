@@ -3,26 +3,31 @@ module.exports = {
 
   output: {
     path: __dirname + '/public/',
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/',
   },
 
   devServer: {
     inline: true,
     port: 7777,
-    contentBase: __dirname + '/public/'
+    contentBase: __dirname + '/public/',
+    historyApiFallback: true
   },
 
   module: {
     loaders: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        query: {
+        loaders: ['babel-loader?' +JSON.stringify({
           cacheDirectory: true,
           presets: ['es2015', 'react']
+        })],
+        exclude: /node_modules/
+      },
+        {
+          test: /\.css$/,
+          loaders: ['style-loader', 'css-loader']
         }
-      }
     ]
   }
 };

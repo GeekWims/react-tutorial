@@ -24,15 +24,23 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header title={ this.props.headerTitle }/>
-        <Content title={ this.props.contentTitle }
-          body={ this.props.contentBody }/>
-        <RandomNumber number={this.state.value}
-          onUpdate={this.updateValue}/>
-        <Contacts/>
+        <Header/>
+        {this.props.children}
       </div>
     );
   }
+  // render() {
+  //   return (
+  //     <div>
+  //       <Header title={ this.props.headerTitle }/>
+  //       <Content title={ this.props.contentTitle }
+  //         body={ this.props.contentBody }/>
+  //       <RandomNumber number={this.state.value}
+  //         onUpdate={this.updateValue}/>
+  //       <Contacts/>
+  //     </div>
+  //   );
+  // }
 }
 
 App.defaultProps = {
