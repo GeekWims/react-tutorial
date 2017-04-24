@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import styles from './Header.css'
+import PropTypes from 'prop-types';
 
 const MenuItem = ({active, children, to}) => (
   <Link to={to} className={`menu-item ${active ? 'active': ''}`}>{children}</Link>
@@ -14,14 +15,14 @@ const Header = (props, context) => {
       <div className="menu">
         <MenuItem to={'/'} active={router.isActive('/', true)}>Home</MenuItem>
         <MenuItem to={'/about'} active={router.isActive('/about', true)}>About</MenuItem>
-        <MenuItem to={'/post'} active={router.isActive('/post', true)}>Post</MenuItem>
+        <MenuItem to={'/post'} active={router.isActive('/post')}>Post</MenuItem>
       </div>
     </div>
   );
 };
 
 Header.contextTypes = {
-  router: React.PropTypes.object
+  router: PropTypes.object
 }
 
 //
